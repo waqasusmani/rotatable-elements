@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#main-elem {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    left: 100px;
+    top: 100px;
+    background-color: blueviolet;
+}
+
+
+#rotator {
+    width: 20%;
+    height: 20%;
+    position: absolute;
+    left: 40%;
+    bottom: 100%;
+    background-color: gold;
+}
