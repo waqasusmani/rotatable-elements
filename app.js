@@ -37,6 +37,9 @@ function mouseMove(e) {
 
     // Breakpoints: 90, 180, 270, 360
     
+
+    // On movement start (any side) to get past the zero degree point
+    
     if (rotationDegree == 0) {
         if (e.clientX > startX) {
             rotationDegree += e.clientY-startY           
@@ -46,22 +49,16 @@ function mouseMove(e) {
         }
     }
 
+    
+    // Clock-wise movement
+
     if (rotationDegree > 0 && rotationDegree < 90) {
         if (e.clientX > startX || e.clientY > startY) {
             rotationDegree += Math.max(e.clientX - startX, e.clientY - startY) 
         }
         if (e.clientX < startX || e.clientY < startY) {
-            rotationDegree += Math.min(e.clientX - startX, e.clientY - startY)
+            rotationDegree -= Math.max(-(e.clientX - startX), -(e.clientY - startY))
         }
-    }
-
-    if (rotationDegree < 0 && rotationDegree > -90) {
-        if (e.clientX < startX || e.clientY > startY) {
-            rotationDegree -= Math.max(-(e.clientX-startX), e.clientY - startY)
-        }
-        if (e.clientX > startX || e.clientY < startY) {
-            rotationDegree += Math.max(e.clientX-startX, -(e.clientY - startY))
-        } 
     }
 
     if (rotationDegree >= 90 && rotationDegree < 180) {
@@ -70,15 +67,6 @@ function mouseMove(e) {
         }
         if (e.clientX > startX || e.clientY < startY) {
             rotationDegree -= Math.max(e.clientX - startX, -(e.clientY - startY)) 
-        }
-    }
-
-    if (rotationDegree <=-90 && rotationDegree > -180) {
-        if (e.clientX > startX || e.clientY < startY) {
-            rotationDegree -= Math.max(e.clientX - startX, -(e.clientY - startY))
-        }
-        if (e.clientX < startX || e.clientY < startY) {
-            rotationDegree -= Math.min(e.clientX - startX, e.clientY - startY)
         }
     }
 
@@ -91,21 +79,42 @@ function mouseMove(e) {
         }
     }
 
-    if (rotationDegree <=-180 && rotationDegree > -270) {
-        if (e.clientX > startX || e.clientY < startY) {
-            rotationDegree -= Math.max(e.clientX - startX, -(e.clientY - startY))
-        }
-        if (e.clientX < startX || e.clientY > startY) {
-            rotationDegree += Math.max(-(e.clientX - startX), e.clientY - startY)
-        }
-    }
-
     if (rotationDegree >=270 && rotationDegree < 360) {
         if (e.clientX > startX || e.clientY < startY) {
             rotationDegree += Math.max(e.clientX - startX, -(e.clientY - startY))
         }
         if (e.clientX < startX || e.clientY > startY) {
             rotationDegree -= Math.max(-(e.clientX - startX), e.clientY - startY)
+        }
+    }
+
+
+    // Anti-clockwise movement
+
+    if (rotationDegree < 0 && rotationDegree > -90) {
+        if (e.clientX < startX || e.clientY > startY) {
+            rotationDegree -= Math.max(-(e.clientX-startX), e.clientY - startY)
+        }
+        if (e.clientX > startX || e.clientY < startY) {
+            rotationDegree += Math.max(e.clientX-startX, -(e.clientY - startY))
+        } 
+    }
+
+    if (rotationDegree <=-90 && rotationDegree > -180) {
+        if (e.clientX > startX || e.clientY < startY) {
+            rotationDegree -= Math.max(e.clientX - startX, -(e.clientY - startY))
+        }
+        if (e.clientX < startX || e.clientY < startY) {
+            rotationDegree -= Math.min(e.clientX - startX, e.clientY - startY)
+        }
+    }
+
+    if (rotationDegree <=-180 && rotationDegree > -270) {
+        if (e.clientX > startX || e.clientY < startY) {
+            rotationDegree -= Math.max(e.clientX - startX, -(e.clientY - startY))
+        }
+        if (e.clientX < startX || e.clientY > startY) {
+            rotationDegree += Math.max(-(e.clientX - startX), e.clientY - startY)
         }
     }
 
@@ -117,6 +126,9 @@ function mouseMove(e) {
             rotationDegree += Math.max(e.clientX - startX, e.clientY - startY)
         }
     }
+
+
+    // Reset if one full circle is completed
 
     if (rotationDegree >= 360 || rotationDegree <= -360) {
         rotationDegree = 0
